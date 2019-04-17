@@ -7,14 +7,20 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      notebooks: []
+      notebooks: [],
+      currentBookIndex: 0,
+      notes: []
     };
   }
 
+  // 使用classnames 优化className
+  // 格式化note.body(省略号),datetime(通过new Date('')、刚刚、前天、昨天、2月13日 23:23).
+
   componentDidMount() {
     axios.get('http://localhost:3100/notebooks').then(res => {
-      console.log(res.data);
       this.setState({ notebooks: res.data });
+      const currentBook = res.data[this.state.currentBookIndex];
+      this.loadNotes(currentBook.id);
     });
   }
 
@@ -39,7 +45,8 @@ class App extends Component {
                 <ul className="notebooks-list">
                   {
                     notebooks.map((notebook, index) => (
-                      <li key={notebook.id} className="notebook-item">
+                      <li key={notebook.id} className={'notebook-item ' + (this.state.currentBookIndex === index ? 'active' : '')}
+                        onClick={() => this.handleSelectBook(index)}>
                         <div className="title has-icon">
                           <i className="iconfont icon-book"></i>
                           {notebook.name}
@@ -57,38 +64,26 @@ class App extends Component {
           <div className="header">读书笔记</div>
           <div className="body">
             <ul className="notes-list">
-              <li>
-                <div className="note-brief active">
-                  <div className="box">
-                    <div className="header">读《深入理解ES6》</div>
-                    <div className="body">
-                      不识老尼，枉为前端攻城狮，其成名作《JS高级程序设计》曾名动江湖。
+            {
+              this.state.notes.map((note, index) => (
+                <li key={note.id}>
+                  <div className="note-brief">
+                    <div className="box">
+                      <div className="header">{note.title}</div>
+                      <div className="body">
+                        {note.body}
+                      </div>
+                    </div>
+                    <div className="footer">
+                      <div className="datetime">{note.datetime}</div>
+                      <button className="trash button">
+                        <i className="iconfont icon-trash"></i>
+                      </button>
                     </div>
                   </div>
-                  <div className="footer">
-                    <div className="datetime">刚刚</div>
-                    <button className="trash button">
-                      <i className="iconfont icon-trash"></i>
-                    </button>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div className="note-brief">
-                  <div className="box">
-                    <div className="header">新建笔记</div>
-                    <div className="body">
-                      笔记概要
-                    </div>
-                  </div>
-                  <div className="footer">
-                    <div className="datetime">2019-3-5</div>
-                    <button className="trash button">
-                      <i className="iconfont icon-trash"></i>
-                    </button>
-                  </div>
-                </div>
-              </li>
+                </li>
+              ))
+            }
             </ul>
           </div>
         </div>
@@ -113,6 +108,19 @@ class App extends Component {
         </div>
       </div>
     );
+  }
+
+  handleSelectBook(index) {
+    this.setState({ currentBookIndex: index });
+    const book = this.state.notebooks[index];
+    this.loadNotes(book.id);
+  }
+
+  loadNotes(bookId) {
+    axios.get('http://localhost:3100/notes?bookId=' + bookId).then(res => {
+      console.log(res.data);
+      this.setState({ notes: res.data });
+    });
   }
 }
 
