@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'normalize.css';
-import axios from 'axios'; 
+import axios from 'axios';
+import classNames from 'classnames';
 import './App.scss';
 
 class App extends Component {
@@ -45,7 +46,8 @@ class App extends Component {
                 <ul className="notebooks-list">
                   {
                     notebooks.map((notebook, index) => (
-                      <li key={notebook.id} className={'notebook-item ' + (this.state.currentBookIndex === index ? 'active' : '')}
+                      <li key={notebook.id} 
+                        className={this.handleActiveClassName('currentBookIndex', ['notebook-item'], index)}
                         onClick={() => this.handleSelectBook(index)}>
                         <div className="title has-icon">
                           <i className="iconfont icon-book"></i>
@@ -108,6 +110,10 @@ class App extends Component {
         </div>
       </div>
     );
+  }
+
+  handleActiveClassName(feildName, defaultClasses, index) {
+    return classNames(...defaultClasses, { active: this.state[feildName] === index });
   }
 
   handleSelectBook(index) {
