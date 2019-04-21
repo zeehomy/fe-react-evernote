@@ -82,7 +82,7 @@ class App extends Component {
                       </div>
                     </div>
                     <div className="footer">
-                      <div className="datetime">{note.datetime}</div>
+                      <div className="datetime">{this.handleDateTime(note.datetime)}</div>
                       <button className="trash button" onClick={() => this.handleDeleteNote(note.id)}>
                         <i className="iconfont icon-trash"></i>
                       </button>
@@ -138,6 +138,20 @@ class App extends Component {
       console.log(res.data);
       this.setState({ notes: res.data });
     });
+  }
+
+  handleDateTime(datetime) {
+
+    const dateObj = new Date(datetime);
+    let formatDateTime = '';
+
+    const month = dateObj.getMonth() + 1;
+    const date = dateObj.getDate();
+    const hours = dateObj.getHours();
+    const minutes = dateObj.getMinutes();
+    formatDateTime = [month, '月', date, '日 ', hours, ':', minutes].join('');
+
+    return formatDateTime;
   }
 
   handleAddNote() {
