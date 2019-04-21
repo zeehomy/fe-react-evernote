@@ -3,6 +3,7 @@ import 'normalize.css';
 import 'github-markdown-css';
 import axios from 'axios';
 import cx from 'classnames';
+import Swal from 'sweetalert2'
 import marked from 'marked';
 import './App.scss';
 
@@ -146,7 +147,7 @@ class App extends Component {
       datetime: new Date().toISOString(),
       bookId: this.state.notebooks[this.state.currentBookIndex].id
     };
-    axios.post(`http://localhost:3100/notes${note}`).then(res => {
+    axios.post('http://localhost:3100/notes/', note).then(res => {
       this.reloadNotes();
     });
   }
@@ -157,9 +158,29 @@ class App extends Component {
   }
 
   handleDeleteNote(noteId) {
-    axios.delete(`http://localhost:3100/notes/${noteId}`).then(res => {
-      this.reloadNotes();
-    });
+
+    Swal.fire({
+      title: '确定要删除吗?',
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '确定',
+      cancelButtonText: '取消'
+    }).then((result) => {
+      if (result.value) {
+        axios.delete(`http://localhost:3100/notes/${noteId}`).then(res => {
+
+          Swal.fire({
+            title: '删除成功！',
+            type: 'success'
+          });
+
+          this.reloadNotes();
+        }); 
+      }
+    })
+    
   }
 
   handleEditNote(noteId) {
@@ -204,7 +225,7 @@ class App extends Component {
 
       // Prevent the default action (tabbing to the next field or control).
       e.preventDefault();
-      
+
       this.handleFieldChange(e);
     }
   }

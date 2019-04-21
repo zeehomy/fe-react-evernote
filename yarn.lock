@@ -9383,6 +9383,11 @@ svgo@^1.0.0, svgo@^1.1.1:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+sweetalert2@^8.8.5:
+  version "8.8.5"
+  resolved "http://registry.npm.taobao.org/sweetalert2/download/sweetalert2-8.8.5.tgz#2c794bc325332de5cec5c7fd774d99ed887e0b85"
+  integrity sha1-LHlLwyUzLeXOxcf9d02Z7Yh+C4U=
+
 symbol-tree@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.2.tgz#ae27db38f660a7ae2e1c3b7d1bc290819b8519e6"
