@@ -51,7 +51,7 @@ class App extends Component {
                 <ul className="notebooks-list">
                   {
                     notebooks.map((notebook, index) => (
-                      <li key={notebook.id} 
+                      <li key={notebook.id}
                         className={this.handleActiveClassName('currentBookIndex', ['notebook-item'], index)}
                         onClick={() => this.handleSelectBook(index)}>
                         <div className="title has-icon">
@@ -107,8 +107,8 @@ class App extends Component {
             </div>
             <div className="body">
               <div className="editor">
-                <textarea name="body" 
-                  value={currentNote.body} 
+                <textarea name="body"
+                  value={currentNote.body}
                   onChange={e => this.handleFieldChange(e)}
                   onKeyDown={e => this.handlePressTab(e)}
                 ></textarea>
@@ -123,6 +123,7 @@ class App extends Component {
     );
   }
 
+  // 单词拼写错误，叫fieldName
   handleActiveClassName(feildName, defaultClasses, index) {
     return cx(...defaultClasses, { active: this.state[feildName] === index });
   }
@@ -154,11 +155,17 @@ class App extends Component {
     const nowTimes = new Date().getTime();
     const difference = nowTimes - times;
 
+    // 下面是否使用if语句更好？比如
+    /*
+     if (difference < 60 * 1000) {
+      return '刚刚';
+     }
+     */
     switch (true) {
       case difference < 60 * 1000 :
         formatDateTime = '刚刚';
         break;
-      
+
       case difference >= 60 * 1000 && difference < 2 * 60 * 1000:
         formatDateTime = '1分钟前';
         break;
@@ -166,15 +173,17 @@ class App extends Component {
       case difference >= 2 * 60 * 1000 && difference < 3 * 60 * 1000:
         formatDateTime = '2分钟前';
         break;
-      
+
       case difference >= 3 * 60 * 1000 && difference < 24 * 60 * 60 * 1000 :
+        // 这里的拼装，可以使用ES6中的模板字符串
+        // `今天 ${hours}:${minutes}`;
         formatDateTime = ['今天 ', hours, ':', minutes].join('');
         break;
 
       case difference >= 24 * 60 * 60 * 1000 && difference < 2 * 24 * 60 * 60 * 1000 :
         formatDateTime = ['昨天 ', hours, ':', minutes].join('');
         break;
-    
+
       default:
         formatDateTime = [month, '月', date, '日 ', hours, ':', minutes].join('');
         break;
@@ -200,6 +209,20 @@ class App extends Component {
     this.loadNotes(bookId);
   }
 
+  // 你学过ES6，可以尝试使用async/await来实现下面这段代码。
+  /**
+  async handleDeleteNote(noteId) {
+    const result = await Swal.fire({
+      ...
+    });
+
+    if (result.value) {
+      ...
+    }
+  }
+
+  是否避免的层层嵌套的缩进，让这个流程更加清晰
+   */
   handleDeleteNote(noteId) {
 
     Swal.fire({
@@ -220,10 +243,10 @@ class App extends Component {
           });
 
           this.reloadNotes();
-        }); 
+        });
       }
     })
-    
+
   }
 
   handleEditNote(noteId) {
@@ -241,7 +264,7 @@ class App extends Component {
     this.setState({
       currentNote: note
     });
-    
+
     axios.put(`http://localhost:3100/notes/${this.state.currentNote.id}`, note);
 
     const notes = [...this.state.notes];
@@ -256,6 +279,7 @@ class App extends Component {
     if ( e.keyCode === 9 ) {
 
       // Set up some variables. We need to know the current position of the cursor or selection.
+      // 用了es6 const，复制过来的代码最好也将它改成一致的，把var改成const，顺便阅读一遍。
       var selectionStartPos = e.target.selectionStart;
       var selectionEndPos   = e.target.selectionEnd;
       var oldContent        = e.target.value;
