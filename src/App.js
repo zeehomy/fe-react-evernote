@@ -124,8 +124,8 @@ class App extends Component {
   }
 
   // 单词拼写错误，叫fieldName
-  handleActiveClassName(feildName, defaultClasses, index) {
-    return cx(...defaultClasses, { active: this.state[feildName] === index });
+  handleActiveClassName(fieldName, defaultClasses, index) {
+    return cx(...defaultClasses, { active: this.state[fieldName] === index });
   }
 
   handleSelectBook(index) {
@@ -188,6 +188,14 @@ class App extends Component {
         formatDateTime = [month, '月', date, '日 ', hours, ':', minutes].join('');
         break;
     }
+
+    // if (difference < 60 * 1000) {
+    //   return '刚刚';
+    // } else if (difference >= 60 * 1000 && difference < 2 * 60 * 1000) {
+    //   return '1分钟前';
+    // } else if (difference >= 2 * 60 * 1000 && difference < 3 * 60 * 1000) {
+      
+    // }
 
     return formatDateTime;
   }
