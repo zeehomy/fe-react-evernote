@@ -149,7 +149,36 @@ class App extends Component {
     const date = dateObj.getDate();
     const hours = dateObj.getHours();
     const minutes = dateObj.getMinutes();
-    formatDateTime = [month, '月', date, '日 ', hours, ':', minutes].join('');
+
+    const times = dateObj.getTime();
+    const nowTimes = new Date().getTime();
+    const difference = nowTimes - times;
+
+    switch (true) {
+      case difference < 60 * 1000 :
+        formatDateTime = '刚刚';
+        break;
+      
+      case difference >= 60 * 1000 && difference < 2 * 60 * 1000:
+        formatDateTime = '1分钟前';
+        break;
+
+      case difference >= 2 * 60 * 1000 && difference < 3 * 60 * 1000:
+        formatDateTime = '2分钟前';
+        break;
+      
+      case difference >= 3 * 60 * 1000 && difference < 24 * 60 * 60 * 1000 :
+        formatDateTime = ['今天 ', hours, ':', minutes].join('');
+        break;
+
+      case difference >= 24 * 60 * 60 * 1000 && difference < 2 * 24 * 60 * 60 * 1000 :
+        formatDateTime = ['昨天 ', hours, ':', minutes].join('');
+        break;
+    
+      default:
+        formatDateTime = [month, '月', date, '日 ', hours, ':', minutes].join('');
+        break;
+    }
 
     return formatDateTime;
   }
