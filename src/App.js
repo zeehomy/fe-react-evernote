@@ -144,7 +144,7 @@ class App extends Component {
   handleDateTime(datetime) {
 
     const dateObj = new Date(datetime);
-    let formatDateTime = '';
+    // let formatDateTime = '';
 
     const month = dateObj.getMonth() + 1;
     const date = dateObj.getDate();
@@ -161,43 +161,49 @@ class App extends Component {
       return '刚刚';
      }
      */
-    switch (true) {
-      case difference < 60 * 1000 :
-        formatDateTime = '刚刚';
-        break;
+    // switch (true) {
+    //   case difference < 60 * 1000 :
+    //     formatDateTime = '刚刚';
+    //     break;
 
-      case difference >= 60 * 1000 && difference < 2 * 60 * 1000:
-        formatDateTime = '1分钟前';
-        break;
+    //   case difference >= 60 * 1000 && difference < 2 * 60 * 1000:
+    //     formatDateTime = '1分钟前';
+    //     break;
 
-      case difference >= 2 * 60 * 1000 && difference < 3 * 60 * 1000:
-        formatDateTime = '2分钟前';
-        break;
+    //   case difference >= 2 * 60 * 1000 && difference < 3 * 60 * 1000:
+    //     formatDateTime = '2分钟前';
+    //     break;
 
-      case difference >= 3 * 60 * 1000 && difference < 24 * 60 * 60 * 1000 :
-        // 这里的拼装，可以使用ES6中的模板字符串
-        // `今天 ${hours}:${minutes}`;
-        formatDateTime = ['今天 ', hours, ':', minutes].join('');
-        break;
+    //   case difference >= 3 * 60 * 1000 && difference < 24 * 60 * 60 * 1000 :
+    //     // 这里的拼装，可以使用ES6中的模板字符串
+    //     // `今天 ${hours}:${minutes}`;
+    //     formatDateTime = ['今天 ', hours, ':', minutes].join('');
+    //     break;
 
-      case difference >= 24 * 60 * 60 * 1000 && difference < 2 * 24 * 60 * 60 * 1000 :
-        formatDateTime = ['昨天 ', hours, ':', minutes].join('');
-        break;
+    //   case difference >= 24 * 60 * 60 * 1000 && difference < 2 * 24 * 60 * 60 * 1000 :
+    //     formatDateTime = ['昨天 ', hours, ':', minutes].join('');
+    //     break;
 
-      default:
-        formatDateTime = [month, '月', date, '日 ', hours, ':', minutes].join('');
-        break;
-    }
-
-    // if (difference < 60 * 1000) {
-    //   return '刚刚';
-    // } else if (difference >= 60 * 1000 && difference < 2 * 60 * 1000) {
-    //   return '1分钟前';
-    // } else if (difference >= 2 * 60 * 1000 && difference < 3 * 60 * 1000) {
-      
+    //   default:
+    //     formatDateTime = [month, '月', date, '日 ', hours, ':', minutes].join('');
+    //     break;
     // }
 
-    return formatDateTime;
+    // return formatDateTime;
+
+    if (difference < 60 * 1000) {
+      return '刚刚';
+    } else if (difference >= 60 * 1000 && difference < 2 * 60 * 1000) {
+      return '1分钟前';
+    } else if (difference >= 2 * 60 * 1000 && difference < 3 * 60 * 1000) {
+      return '2分钟前';
+    } else if (difference >= 3 * 60 * 1000 && difference < 24 * 60 * 60 * 1000) {
+      return `今天 ${hours}:${minutes}`
+    } else if (difference >= 24 * 60 * 60 * 1000 && difference < 2 * 24 * 60 * 60 * 1000) {
+      return `昨天 ${hours}:${minutes}`
+    } else {
+      return `${month}月${date}日 ${hours}:${minutes}`
+    }
   }
 
   handleAddNote() {
@@ -231,9 +237,34 @@ class App extends Component {
 
   是否避免的层层嵌套的缩进，让这个流程更加清晰
    */
-  handleDeleteNote(noteId) {
+  // handleDeleteNote(noteId) {
 
-    Swal.fire({
+  //   Swal.fire({
+  //     title: '确定要删除吗?',
+  //     type: 'question',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: '确定',
+  //     cancelButtonText: '取消'
+  //   }).then((result) => {
+  //     if (result.value) {
+  //       axios.delete(`http://localhost:3100/notes/${noteId}`).then(res => {
+
+  //         Swal.fire({
+  //           title: '删除成功！',
+  //           type: 'success'
+  //         });
+
+  //         this.reloadNotes();
+  //       });
+  //     }
+  //   })
+
+  // }
+
+  async handleDeleteNote(noteId) {
+    const result = await Swal.fire({
       title: '确定要删除吗?',
       type: 'question',
       showCancelButton: true,
@@ -241,20 +272,16 @@ class App extends Component {
       cancelButtonColor: '#d33',
       confirmButtonText: '确定',
       cancelButtonText: '取消'
-    }).then((result) => {
-      if (result.value) {
-        axios.delete(`http://localhost:3100/notes/${noteId}`).then(res => {
+    });
 
-          Swal.fire({
-            title: '删除成功！',
-            type: 'success'
-          });
-
-          this.reloadNotes();
-        });
-      }
-    })
-
+    if (result.value) {
+      await axios.delete(`http://localhost:3100/notes/${noteId}`);
+      Swal.fire({
+        title: '删除成功！',
+        type: 'success'
+      });
+      this.reloadNotes();
+    }
   }
 
   handleEditNote(noteId) {
@@ -288,9 +315,9 @@ class App extends Component {
 
       // Set up some variables. We need to know the current position of the cursor or selection.
       // 用了es6 const，复制过来的代码最好也将它改成一致的，把var改成const，顺便阅读一遍。
-      var selectionStartPos = e.target.selectionStart;
-      var selectionEndPos   = e.target.selectionEnd;
-      var oldContent        = e.target.value;
+      const selectionStartPos = e.target.selectionStart;
+      const selectionEndPos = e.target.selectionEnd;
+      const oldContent = e.target.value;
 
       // Set the new content.
       e.target.value = oldContent.substring( 0, selectionStartPos ) + "\t" + oldContent.substring( selectionEndPos );
