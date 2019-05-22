@@ -22,7 +22,7 @@ class App extends Component {
   // 格式化note.body(省略号),datetime(通过new Date('')、刚刚、前天、昨天、2月13日 23:23).
 
   componentDidMount() {
-    axios.get('http://localhost:3100/notebooks').then(res => {
+    axios.get('/notebooks').then(res => {
       this.setState({ notebooks: res.data });
       const currentBook = res.data[this.state.currentBookIndex];
       this.loadNotes(currentBook.id);
@@ -135,7 +135,7 @@ class App extends Component {
   }
 
   loadNotes(bookId) {
-    axios.get(`http://localhost:3100/notes?bookId=${bookId}`).then(res => {
+    axios.get(`/notes?bookId=${bookId}`).then(res => {
       console.log(res.data);
       this.setState({ notes: res.data });
     });
@@ -213,7 +213,7 @@ class App extends Component {
       datetime: new Date().toISOString(),
       bookId: this.state.notebooks[this.state.currentBookIndex].id
     };
-    axios.post('http://localhost:3100/notes/', note).then(res => {
+    axios.post('/notes/', note).then(res => {
       this.reloadNotes();
     });
   }
@@ -249,7 +249,7 @@ class App extends Component {
   //     cancelButtonText: '取消'
   //   }).then((result) => {
   //     if (result.value) {
-  //       axios.delete(`http://localhost:3100/notes/${noteId}`).then(res => {
+  //       axios.delete(`/notes/${noteId}`).then(res => {
 
   //         Swal.fire({
   //           title: '删除成功！',
@@ -275,7 +275,7 @@ class App extends Component {
     });
 
     if (result.value) {
-      await axios.delete(`http://localhost:3100/notes/${noteId}`);
+      await axios.delete(`/notes/${noteId}`);
       Swal.fire({
         title: '删除成功！',
         type: 'success'
@@ -285,7 +285,7 @@ class App extends Component {
   }
 
   handleEditNote(noteId) {
-    axios.get(`http://localhost:3100/notes/${noteId}`).then(res => {
+    axios.get(`/notes/${noteId}`).then(res => {
       this.setState({ currentNote: res.data });
     });
   }
@@ -300,7 +300,7 @@ class App extends Component {
       currentNote: note
     });
 
-    axios.put(`http://localhost:3100/notes/${this.state.currentNote.id}`, note);
+    axios.put(`/notes/${this.state.currentNote.id}`, note);
 
     const notes = [...this.state.notes];
     const index = notes.findIndex(o => o.id === this.state.currentNote.id);
