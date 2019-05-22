@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/fe-react-evernot/precache-manifest.6fb243cc9cdbdef3f6c804de40ec4e15.js"
+  "/fe-react-evernote/precache-manifest.476cf9f7f877f039880c4dc4fabeccd3.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/fe-react-evernot/index.html", {
+workbox.routing.registerNavigationRoute("/fe-react-evernote/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });

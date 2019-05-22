@@ -1,15 +1,15 @@
 {
-  "main.css": "/fe-react-evernot/static/css/main.89d24d7e.chunk.css",
-  "main.js": "/fe-react-evernot/static/js/main.a1c13e9e.chunk.js",
-  "main.js.map": "/fe-react-evernot/static/js/main.a1c13e9e.chunk.js.map",
-  "runtime~main.js": "/fe-react-evernot/static/js/runtime~main.022109f0.js",
-  "runtime~main.js.map": "/fe-react-evernot/static/js/runtime~main.022109f0.js.map",
-  "static/css/2.1789321d.chunk.css": "/fe-react-evernot/static/css/2.1789321d.chunk.css",
-  "static/js/2.4ddc5d48.chunk.js": "/fe-react-evernot/static/js/2.4ddc5d48.chunk.js",
-  "static/js/2.4ddc5d48.chunk.js.map": "/fe-react-evernot/static/js/2.4ddc5d48.chunk.js.map",
-  "index.html": "/fe-react-evernot/index.html",
-  "precache-manifest.6fb243cc9cdbdef3f6c804de40ec4e15.js": "/fe-react-evernot/precache-manifest.6fb243cc9cdbdef3f6c804de40ec4e15.js",
-  "service-worker.js": "/fe-react-evernot/service-worker.js",
-  "static/css/2.1789321d.chunk.css.map": "/fe-react-evernot/static/css/2.1789321d.chunk.css.map",
-  "static/css/main.89d24d7e.chunk.css.map": "/fe-react-evernot/static/css/main.89d24d7e.chunk.css.map"
+  "main.css": "/fe-react-evernote/static/css/main.89d24d7e.chunk.css",
+  "main.js": "/fe-react-evernote/static/js/main.4ff83f7c.chunk.js",
+  "main.js.map": "/fe-react-evernote/static/js/main.4ff83f7c.chunk.js.map",
+  "runtime~main.js": "/fe-react-evernote/static/js/runtime~main.ddb70f79.js",
+  "runtime~main.js.map": "/fe-react-evernote/static/js/runtime~main.ddb70f79.js.map",
+  "static/css/2.1789321d.chunk.css": "/fe-react-evernote/static/css/2.1789321d.chunk.css",
+  "static/js/2.4ddc5d48.chunk.js": "/fe-react-evernote/static/js/2.4ddc5d48.chunk.js",
+  "static/js/2.4ddc5d48.chunk.js.map": "/fe-react-evernote/static/js/2.4ddc5d48.chunk.js.map",
+  "index.html": "/fe-react-evernote/index.html",
+  "precache-manifest.476cf9f7f877f039880c4dc4fabeccd3.js": "/fe-react-evernote/precache-manifest.476cf9f7f877f039880c4dc4fabeccd3.js",
+  "service-worker.js": "/fe-react-evernote/service-worker.js",
+  "static/css/2.1789321d.chunk.css.map": "/fe-react-evernote/static/css/2.1789321d.chunk.css.map",
+  "static/css/main.89d24d7e.chunk.css.map": "/fe-react-evernote/static/css/main.89d24d7e.chunk.css.map"
 }
