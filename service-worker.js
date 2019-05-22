@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/fe-react-evernote/precache-manifest.476cf9f7f877f039880c4dc4fabeccd3.js"
+  "/fe-react-evernote/precache-manifest.54ab068ae2919eb41cc5f5541b0be227.js"
 );
 
 workbox.clientsClaim();
